@@ -1,5 +1,4 @@
 import numpy as np
-import math
 
 def generate_and_filter_odd_numbers(N):
     positive_numbers = np.arange(1, N + 1)
@@ -12,33 +11,41 @@ def generate_and_replace_neg_numbers(N):
     return numbers
 
 def generate_3d_points(N):
-    return np.random.rand(3, N);
+    return np.random.rand(3, N)
 
 def calculate_distances(X, Y):
     diff = X - Y
     distances = np.linalg.norm(diff, axis=0)
     return distances
 
+def generate_random_vector(N):
+    return np.random.randint(-100, 100, N)
+
 N = 3
 
 result_odd = generate_and_filter_odd_numbers(N)
 result_neg = generate_and_replace_neg_numbers(N)
 
-print("Returning odd numbers:\n")
-print(result_odd)
+print("\nReturning odd numbers:", result_odd)
 
-print("Returning negative replaced with 0:\n")
-print(result_neg)
+print("\nReturning negative replaced with 0:", result_neg)
 
 X = generate_3d_points(N)
 Y = generate_3d_points(N)
 
-print("\nFirst set of points:")
-print(X)
+print("\nFirst set of points:\n", X)
 
-print("\nSecond set of points:")
-print(Y)
+print("\nSecond set of points:\n", Y)
 
 distances = calculate_distances(X, Y)
-print("\nDistances: ")
-print(distances)
+print("\nDistances: ", distances)
+
+random_vector =  generate_random_vector(N)
+
+count_greater_than_previous = np.sum(random_vector[1:] > random_vector[:-1])
+
+count_sign_changes = np.sum(np.sign(random_vector[1:]) != np.sign(random_vector[:-1]))
+
+print("\nRandom vector:", random_vector)
+print("Greater than previous:", count_greater_than_previous)
+print("Sign changes:", count_sign_changes)
