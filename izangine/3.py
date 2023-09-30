@@ -52,8 +52,8 @@ def multiply_matrices_np(matrix_A, matrix_B):
     else:
         print("Matrix multiplication is not possible")
         
-N = 5
-M = 6
+N = 20
+M = 20
 
 matrix_A = generate_tridiagonal_matrix(N)
 matrix_B = generate_matrix(N, M)

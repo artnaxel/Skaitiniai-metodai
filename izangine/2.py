@@ -27,6 +27,6 @@ def generate_matrix(N):
 
     return matrix
 
-N = 8
+N = 9
 result = generate_matrix(N)
 print(result)
