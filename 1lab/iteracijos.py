@@ -58,11 +58,11 @@ plt.plot(x, x, label='y = x')
 plt.plot(x, y2, label="y = -2xe^(-x^2)", linestyle='--')
 
 # Mark specific points of iterations
-selected_iterations = [0, 10, len(iterations) - 1]  
+selected_iterations = [0, 2, 5, 10, len(iterations) - 1]  
 for i in selected_iterations:
     iter_num, x, _ = iterations[i]
     plt.plot(x, g(x), 'go')  
-    plt.annotate(f'({x:.2f})', (x, g(x)), textcoords="offset points", xytext=(0,10), ha='center')
+    plt.annotate(f'({x:.2f}) ({iter_num})', (x, g(x)), textcoords="offset points", xytext=(0,10), ha='center')
 
 # Labels and titles
 plt.title('Funkcijos grafikas ir tam tikrų iteracijų taškai')
