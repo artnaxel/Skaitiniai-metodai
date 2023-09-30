@@ -1,44 +1,46 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+def val_error():
+    return "Funkcija nekonverguoja!"
 def g(x):
     return np.exp(-x**2)
 
 def dg(x):
     return -2 * x * np.exp(-x**2)
 
-def find_q():
-    x = np.linspace(a, b, 1000)
-    return np.max(dg(x))
+def find_q(x):
+    return np.max(np.abs(dg(x)))
 
-def simple_iteration(x0, tol=1e-6, max_iter=1000):
-    x_prev = x0
-    iterations = []
-    q = find_q()
-    for i in range(max_iter):
-        x_next = g(x_prev)
-        error = abs(x_next - x_prev)
-        iterations.append((i, x_next, error))
+def simple_iteration(x0, x, tol=1e-6, max_iter=1000):
+    q = find_q(x)
+    if ((dg(x) <= q) & (q < 1)).all():
+        x_prev = x0
+        iterations = []
+        for i in range(max_iter):
+            x_next = g(x_prev)
+            error = abs(x_next - x_prev)
+            iterations.append((i, x_next, error))
 
-        if error <= ((1-q) / q) * tol:
-            return x_next, iterations
-        x_prev = x_next
+            if error <= ((1-q) / q) * tol:
+                return x_next, iterations
+            x_prev = x_next
 
-    raise ValueError("Nekonverguoja!")
+        raise ValueError(val_error())
+    else:
+        raise ValueError(val_error())
 
 
 x0 = 0.5
 a = -1
 b = 1
-root, iterations = simple_iteration(x0)
+x = np.linspace(a, b, 1000)
+root, iterations = simple_iteration(x0, x)
 
 # Iteration table
 print(f"{'Iteracija':<10}{'Artinys':<20}{'Paklaida':<20}")
-for i, x, error in iterations:
-    print(f"{i:<10}{x:<20.6f}{error:<20.6f}")
-
-# Create a range of x values
-x = np.linspace(a, b, 1000)
+for i, val, error in iterations:
+    print(f"{i:<10}{val:<20.6f}{error:<20.6f}")
 
 # Calculate y values based on the function y=e^(-x^2)
 y1 = np.exp(-x**2)

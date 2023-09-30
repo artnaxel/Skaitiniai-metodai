@@ -1,4 +1,3 @@
-import math
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -9,7 +8,7 @@ def bisection(a, b, tol=1e-6, max_iter=1000):
     if f(a) * f(b) > 0:
         print("Netinkamas pradinis intervalas.")
         return None, []
-
+    
     iteration = 0
     c = (a + b) / 2.0
     history = [c]
