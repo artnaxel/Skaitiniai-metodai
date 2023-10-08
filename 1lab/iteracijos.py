@@ -3,6 +3,7 @@ import numpy as np
 
 def val_error():
     return "Funkcija nekonverguoja!"
+
 def g(x):
     return np.exp(-x**2)
 
@@ -32,15 +33,15 @@ def simple_iteration(x0, x, tol=1e-6, max_iter=1000):
 
 
 x0 = 0.5
-a = -1
-b = 1
+a = -10
+b = 10
 x = np.linspace(a, b, 1000)
 root, iterations = simple_iteration(x0, x)
 
 # Iteration table
 print(f"{'Iteracija':<10}{'Artinys':<20}{'Paklaida':<20}")
 for i, val, error in iterations:
-    print(f"{i:<10}{val:<20.6f}{error:<20.6f}")
+    print(f"{i:<10}{val:<20.6f}{error:<20.9f}")
 
 # Calculate y values based on the function y=e^(-x^2)
 y1 = np.exp(-x**2)
@@ -64,7 +65,7 @@ for i in selected_iterations:
     plt.plot(x, g(x), 'go')  
     plt.annotate(f'({x:.2f}) ({iter_num})', (x, g(x)), textcoords="offset points", xytext=(0,10), ha='center')
 
-# Labels and titles
+
 plt.title('Funkcijos grafikas ir tam tikrų iteracijų taškai')
 plt.xlabel('x')
 plt.ylabel('y')
