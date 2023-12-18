@@ -8,7 +8,7 @@ def f(x, y):
 def eq(x):
     return (np.exp(2*x) - 2 * x - 1) / 4
 
-def runge_kutta(f, x0, y0, x_end, N, T):
+def heuns_runge_kutta(f, x0, y0, x_end, N, T):
     x = np.linspace(x0, x_end, N)
     y = np.zeros(N)
     y[0] = y0
@@ -34,11 +34,11 @@ def plot_results(x, y_actual, y_approx, method_name):
 x0 = 0.0
 y0 = 0.0
 x_end = 8.0
-N = 41 # Corresponding to T = 0.4
-#N = 41  #T = 0.2
-T = (x_end - x0) / (N - 1)
+N = 40 # T = 0.4
+#N = 20  #T = 0.2
+T = (x_end - x0) / N
 
-x_rk, y_rk = runge_kutta(f, x0, y0, x_end, N, T)
+x_rk, y_rk = heuns_runge_kutta(f, x0, y0, x_end, N + 1, T)
 
 
 y_actual = eq(x_rk)
@@ -46,7 +46,7 @@ error = np.abs(y_actual - y_rk)
 
 
 data = {
-    "T": np.full_like(x_rk, (x_end - x0) / (N - 1)),
+    "T": T,
     "x": x_rk,
     "y_actual": y_actual,
     "y_rk": y_rk,
@@ -56,7 +56,3 @@ df = pd.DataFrame(data)
 print(df)
 
 plot_results(x_rk, y_actual, y_rk, "Runge-Kutta metodas")
-
-# Runge Kutta - antros eiles metodas, nes jei sumazinsim T 2 kartus, tai paklaida sumazes 2^2^2 = 4 8 kartus
-# Kai T = 0.2, tai paklaida kai x = 0.4 yra 0.008785
-# Kai T = 0.4 tai paklaida kai x = 0.4 yra 0.02638

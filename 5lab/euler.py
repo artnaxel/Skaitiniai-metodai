@@ -13,7 +13,7 @@ def euler_method(f, x0, y0, T, x_end, N):
     y_values = [y0]
     
     for i in range(1, N):
-        y_new = y_values[-1] + T * f(x_values[i-1], y_values[-1])
+        y_new = y_values[i-1] + T * f(x_values[i-1], y_values[i-1])
         y_values.append(y_new)
     
     return x_values, y_values
@@ -39,16 +39,16 @@ def plot_results(x, y_actual, y_approx, method_name):
 x0 = 0.0
 y0 = 0.0
 x_end = 8.0
-N = 41
-#N = 81 # T = 0.1
-#N = 41  #T = 0.2
-#N = 21  T = 0.4
-#N = 11  T = 0.8
-#N = 6   T = 1.6
+#N = 40 # T = 0.2
+#N = 80 # T = 0.1
+#N = 40  #T = 0.2
+N = 20  #T = 0.4
+#N = 10  T = 0.8
+#N = 5   T = 1.6
 
-T = (x_end - x0) / (N - 1)
+T = (x_end - x0) / N
 
-x_euler, y_euler = euler_method(f, x0, y0, T, x_end, N)
+x_euler, y_euler = euler_method(f, x0, y0, T, x_end, N + 1)
 
 y_actual = eq(x_euler)
 error = calculate_error(y_actual, y_euler)
@@ -62,10 +62,9 @@ data = {
     "error": error
 }
 
+print("Max error: ", max(error))
 df = pd.DataFrame(data)
 
 print(df)
 plot_results(x_euler, y_actual, y_euler, "Eulerio metodas")
 
-# Eulerio metodas yra pirmos eiles metoads nes sumazinsim T 2 kartus, tai paklaida sumazes 4 kartus
-# local error (error per step) is proportional to the square of the step size, and the global error (error at a given time) is proportional to the step size itself.
